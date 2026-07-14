@@ -1,26 +1,33 @@
 from operations import add, subtract, multiply, divide
+import logarithmic  # Importing your module
 
 # Dictionary of available operations
 operations = {
     "+": add,
     "-": subtract,
     "*": multiply,
-    "/": divide
+    "/": divide,
+    "ln": logarithmic.natural_log,
+    "log10": logarithmic.base_10_log,
+    "log": logarithmic.custom_base_log
 }
 
 def display_menu():
     print("\n===== Calculator =====")
-    print("+ : Addition")
-    print("- : Subtraction")
+    print("+   : Addition")
+    print("-   : Subtraction")
     print("* : Multiplication")
-    print("/ : Division")
-    print("q : Quit")
+    print("/   : Division")
+    print("ln  : Natural Logarithm (base e)")
+    print("log10: Common Logarithm (base 10)")
+    print("log : Custom Base Logarithm")
+    print("q   : Quit")
 
 
 while True:
     display_menu()
 
-    choice = input("Choose an operation: ")
+    choice = input("Choose an operation: ").strip()
 
     if choice.lower() == "q":
         print("Goodbye!")
@@ -31,12 +38,24 @@ while True:
         continue
 
     try:
-        a = float(input("Enter first number: "))
-        b = float(input("Enter second number: "))
+        # Handle Logarithmic operations (which only need 1 or specific custom inputs)
+        if choice in ["ln", "log10"]:
+            a = float(input("Enter number: "))
+            result = operations[choice](a)
+            
+        elif choice == "log":
+            a = float(input("Enter number: "))
+            base = float(input("Enter base: "))
+            result = operations[choice](a, base)
+            
+        # Handle standard arithmetic operations (which need 2 numbers)
+        else:
+            a = float(input("Enter first number: "))
+            b = float(input("Enter second number: "))
+            result = operations[choice](a, b)
+            
     except ValueError:
         print("Please enter valid numbers.")
         continue
-
-    result = operations[choice](a, b)
 
     print("Result:", result)
