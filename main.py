@@ -23,7 +23,7 @@ operations = {
     "cot": trigonometry.cot,
     "deg2rad": trigonometry.deg_to_rad,
     "rad2deg": trigonometry.rad_to_deg,
-    "TwoPowerX": ExpOps.twoPowerX,
+    "twopowerx": ExpOps.twoPowerX,
     "power":ExpOps.power,
     "exponential":ExpOps.exp
 }
@@ -41,14 +41,6 @@ def display_menu():
     print("twopowerx: 2^x")
     print("power: x^y")
     print("exponential: e^x")
-    print("q   : Quit")
-    print("+      : Addition")
-    print("-      : Subtraction")
-    print("*      : Multiplication")
-    print("/      : Division")
-    print("ln     : Natural Logarithm (base e)")
-    print("log10  : Common Logarithm (base 10)")
-    print("log    : Custom Base Logarithm")
     print("sin    : Sine")
     print("cos    : Cosine")
     print("tan    : Tangent")
@@ -60,13 +52,15 @@ def display_menu():
     print("cot    : Cotangent")
     print("deg2rad: Degrees to Radians")
     print("rad2deg: Radians to Degrees")
-    print("q      : Quit")
+    print("q   : Quit")
+   
 
 
 while True:
     display_menu()
 
     choice = input("Choose an operation: ").strip()
+    choice=choice.lower()
 
     if choice.lower() == "q":
         print("Goodbye!")
@@ -84,7 +78,7 @@ while True:
             
             
         # Handle standard arithmetic operations (which need 2 numbers)
-        if choice in ["ln", "log10"]:
+        elif choice in ["ln", "log10"]:
             a = float(input("Enter number: "))
             result = operations[choice](a)
 
